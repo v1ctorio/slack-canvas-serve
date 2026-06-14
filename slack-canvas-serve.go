@@ -34,5 +34,13 @@ func canvasHandler(w http.ResponseWriter, r *http.Request) {
 		format = "md"
 	}
 
+	response, err := http.Post("https://slack.com/api/canvases.sections.lookup", "", nil)
+
+	if (err != nil) {
+		http.Error(w,"Unable to fetch canvas content", 500)
+		return
+	}
+
+
 	fmt.Fprintf(w, "requested canvas: `%s` with format: `%s`", canvas_id, format)
 }
